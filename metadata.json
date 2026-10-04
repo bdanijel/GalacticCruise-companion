@@ -1,0 +1,6 @@
+{
+  "name": "Galactic Cruise Companion",
+  "description": "Digitalni vodič i companion za društvenu igru Galactic Cruise: pravila, 2-igrača mod za Danijela i Cecu, kalkulator bodova, baza ikona i komponenti, i rešavanje nedoumica.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
