@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import { Navbar, ActiveTab } from './components/Navbar';
+import { MobileBottomNav } from './components/MobileBottomNav';
 import { TwoPlayerHub } from './components/TwoPlayerHub';
 import { ScoreCalculator } from './components/ScoreCalculator';
 import { TieBreakerGuide } from './components/TieBreakerGuide';
@@ -31,8 +32,8 @@ export default function App() {
         openDeployModal={() => setIsDeployModalOpen(true)}
       />
 
-      {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+      {/* Main Container with extra bottom padding on mobile for MobileBottomNav */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3.5 sm:px-6 lg:px-8 py-4 sm:py-8 pb-24 md:pb-12">
         {activeTab === 'twoplayer' && <TwoPlayerHub />}
         {activeTab === 'calculator' && <ScoreCalculator />}
         {activeTab === 'ties' && <TieBreakerGuide />}
@@ -41,6 +42,14 @@ export default function App() {
         {activeTab === 'faq' && <FaqSection />}
         {activeTab === 'components' && <ComponentsCatalog />}
       </main>
+
+      {/* Persistent Bottom Navigation for Mobile Devices */}
+      <MobileBottomNav
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        openSearch={() => setIsSearchOpen(true)}
+        openDeployModal={() => setIsDeployModalOpen(true)}
+      />
 
       {/* Universal Search Modal (Ctrl+K) */}
       <UniversalSearchModal
