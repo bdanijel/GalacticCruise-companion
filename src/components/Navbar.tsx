@@ -1,5 +1,5 @@
 import React from 'react';
-import { Rocket, Calculator, Users2, HelpCircle, BookOpen, Layers, Trophy, Search } from 'lucide-react';
+import { Rocket, Calculator, Users2, HelpCircle, BookOpen, Layers, Trophy, Search, GitBranch } from 'lucide-react';
 
 export type ActiveTab = 'twoplayer' | 'calculator' | 'ties' | 'setup' | 'turnflow' | 'faq' | 'components' | 'search';
 
@@ -7,9 +7,15 @@ interface NavbarProps {
   activeTab: ActiveTab;
   setActiveTab: (tab: ActiveTab) => void;
   openSearch: () => void;
+  openDeployModal: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openSearch }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  activeTab,
+  setActiveTab,
+  openSearch,
+  openDeployModal,
+}) => {
   const navItems = [
     { id: 'twoplayer', label: '2P Vodič (Danijel & Ceca)', icon: Users2, highlight: true },
     { id: 'calculator', label: 'Kalkulator Bodova (AGM)', icon: Calculator, badge: 'AGM A/B/C' },
@@ -46,8 +52,18 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, openSea
             </div>
           </div>
 
-          {/* Quick Search Button */}
-          <div className="flex items-center gap-2 sm:gap-4">
+          {/* Quick Actions (GitHub Pages deploy + Search) */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button
+              onClick={openDeployModal}
+              className="flex items-center gap-1.5 px-3 py-1.5 sm:px-3 sm:py-2 text-xs font-mono font-medium text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 hover:border-amber-500/50 rounded-lg transition-all"
+              title="Uputstvo za GitHub Pages i GitHub Actions"
+            >
+              <GitBranch className="w-3.5 h-3.5 text-amber-400" />
+              <span className="hidden md:inline">GitHub Actions Publish</span>
+              <span className="md:hidden">Publish</span>
+            </button>
+
             <button
               onClick={openSearch}
               className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-slate-300 bg-slate-900/80 hover:bg-slate-800 border border-slate-700/60 hover:border-amber-500/50 rounded-lg transition-all shadow-sm"

@@ -13,11 +13,13 @@ import { TurnFlowGuide } from './components/TurnFlowGuide';
 import { ComponentsCatalog } from './components/ComponentsCatalog';
 import { FaqSection } from './components/FaqSection';
 import { UniversalSearchModal } from './components/UniversalSearchModal';
-import { Rocket, Github, Heart, Globe, Sparkles } from 'lucide-react';
+import { GitHubDeployModal } from './components/GitHubDeployModal';
+import { Rocket, Sparkles, GitBranch } from 'lucide-react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('twoplayer');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isDeployModalOpen, setIsDeployModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-amber-500/30 selection:text-amber-200">
@@ -26,6 +28,7 @@ export default function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         openSearch={() => setIsSearchOpen(true)}
+        openDeployModal={() => setIsDeployModalOpen(true)}
       />
 
       {/* Main Container */}
@@ -46,6 +49,12 @@ export default function App() {
         onSelectTab={(tab) => setActiveTab(tab)}
       />
 
+      {/* GitHub Pages Deploy Guide Modal */}
+      <GitHubDeployModal
+        isOpen={isDeployModalOpen}
+        onClose={() => setIsDeployModalOpen(false)}
+      />
+
       {/* Footer */}
       <footer className="bg-slate-950 border-t border-slate-900 mt-12 py-8 text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -57,9 +66,12 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-4 text-slate-400 font-mono">
-            <span className="flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Spreman za GitHub Pages
-            </span>
+            <button
+              onClick={() => setIsDeployModalOpen(true)}
+              className="flex items-center gap-1.5 text-amber-400 hover:text-amber-300 underline font-semibold transition-colors"
+            >
+              <GitBranch className="w-3.5 h-3.5" /> GitHub Actions Publish Vodič
+            </button>
             <span>•</span>
             <span>Training Manual v1.2.5</span>
           </div>
@@ -68,7 +80,7 @@ export default function App() {
         {/* GitHub Pages quick tip */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 pt-4 border-t border-slate-900/60 text-[11px] text-slate-600 flex flex-col sm:flex-row justify-between gap-2">
           <p>
-            Za objavu na GitHub Pages: pokrenite <code className="bg-slate-900 px-1 py-0.5 rounded text-amber-400">npm run build</code> i postavite sadržaj <code className="bg-slate-900 px-1 py-0.5 rounded text-amber-400">dist/</code> foldera na vaš GitHub repozitorijum.
+            Kreiran je GitHub Actions workflow fajl <code className="bg-slate-900 px-1 py-0.5 rounded text-amber-400">.github/workflows/deploy.yml</code> koji automatski radi build i objavljuje sajt pri svakom push-u na <code className="text-slate-300 font-mono">main</code>.
           </p>
           <p>
             Izdavač originalne igre: Kinson Key Games LLC © 2024.
